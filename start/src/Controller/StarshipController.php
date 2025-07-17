@@ -18,9 +18,9 @@ class StarshipController extends AbstractController
      * @throws ORMException
      */
     #[Route('/starships/{id<\d+>}', name: 'app_starship_show')]
-    public function show(int $id, EntityManagerInterface $em): Response
+    public function show(int $id, StarshipRepository $repository): Response
     {
-        $ship = $em->find(Starship::class, $id);
+        $ship = $repository->find($id);
         if (!$ship) {
             throw $this->createNotFoundException('Starship not found');
         }
